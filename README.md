@@ -24,15 +24,16 @@ The dataset used in this project is publicly available on Kaggle:
 
  ## Salary Trends by Experience and Region
 <p align="center">
-  <img src="plot1.png" width="550">
+  <img src="plot2" width="550">
 </p>
 
 <p align="center">
 Salaries increase significantly with experience, with North America leading across all levels.
 </p>
+
 ## Salary Distribution
 <p align="center">
-  <img src="plot2" width="550">
+  <img src="plot1.png" width="550">
 </p>
 
 <p align="center">

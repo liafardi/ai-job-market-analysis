@@ -25,8 +25,8 @@ The dataset used in this project is publicly available on Kaggle:
 - ## Salary Trends by Experience and Region
 
 - ## Salary Distribution
- ![Salary Distribution](plot1.png)<img src="plot1.png" width="600">
-- The distribution is right-skewed, indicating a concentration of mid-range salaries with high-end outliers.
+ ![Salary Distribution]<img src="plot1.png" width="600">
+The distribution is right-skewed, indicating a concentration of mid-range salaries with high-end outliers.
 
 - ## Key Insights
 - Salary varies significantly by role and experience  

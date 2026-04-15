@@ -37,7 +37,7 @@ Salaries increase significantly with experience, with North America leading acro
 </p>
 
 <p align="center">
-Salaries increase significantly with experience, with North America leading across all levels.
+The distribution is right-skewed, indicating a concentration of mid-range salaries with high-end outliers.
 </p>
 
 ## Key Insights

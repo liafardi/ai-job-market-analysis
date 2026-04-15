@@ -23,7 +23,15 @@ The dataset used in this project is publicly available on Kaggle:
 - ggplot2 / dplyr
 
 - ## Salary Trends by Experience and Region
-<img src="plot2" width="600">
+<h3>Salary Trends by Experience and Region</h3>
+
+<p align="center">
+  <img src="plot1.png" width="600">
+</p>
+
+<p align="center">
+Salaries increase significantly with experience, with North America leading across all levels.
+</p>
 Salaries increase significantly with experience, with North America leading across all levels.
 
 - ## Salary Distribution

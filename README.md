@@ -24,7 +24,7 @@ https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-tren
 
  ## Salary Trends by Experience and Region
 <p align="center">
-  <img src="plot2.png" width="550">
+  <img src="interaction_plot.png" width="550">
 </p>
 
 <p align="center">
@@ -33,7 +33,7 @@ Salaries increase significantly with experience, with North America leading acro
 
 ## Salary Distribution
 <p align="center">
-  <img src="plot1.png" width="550">
+  <img src="salary_distribution.png" width="550">
 </p>
 
 <p align="center">

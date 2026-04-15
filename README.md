@@ -1,15 +1,12 @@
-# ai-job-market-analysis
+# AI Job Market Analysis (R)
 Analysis of salary trends in the AI job market using R
-## Dataset
-The dataset used in this project is publicly available on Kaggle:
-[Global AI Job Market & Salary Trends 2025] https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025
-
--The data includes job roles, salaries, experience levels, locations, etc.
-## Data Source
-Dataset obtained from Kaggle and used for educational and analytical purposes.
 
 ## Overview
 This project analyzes salary trends and key factors influencing compenstation in the AI job market.
+
+## Dataset
+The dataset used in this project is publicly available on Kaggle:
+[Global AI Job Market & Salary Trends 2025] https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025
 
 ## Objectives
 - Analyze salary distribution across roles and regions  

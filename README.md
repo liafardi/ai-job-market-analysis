@@ -6,7 +6,7 @@ This project analyzes salary trends and key factors influencing compenstation in
 
 ## Dataset
 The dataset used in this project is publicly available on Kaggle:
-[Global AI Job Market & Salary Trends 2025] https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025
+https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025
 
 ## Objectives
 - Analyze salary distribution across roles and regions  
@@ -41,8 +41,9 @@ The distribution is right-skewed, indicating a concentration of mid-range salari
 </p>
 
 ## Key Insights
-- Salary varies significantly by role and experience  
-- Geographic location impacts salary distribution
+- Salaries increase significantly with experience  
+- North America offers the highest compensation across all levels  
+- AI Engineering and Data Science roles show strong salary growth  
   
 ## Author
 Apostolia Fardi

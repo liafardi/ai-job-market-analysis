@@ -14,7 +14,7 @@ library(scales)
 library(car)       
 library(emmeans)  
 
-df<-read.csv("~/Documents/MSc/3ο Trimester/Statistics/ergasia/dataset/ai_job_dataset.csv")
+df<-read.csv("ai_job_dataset.csv")
 ```
 
 #Prepare Data

@@ -27,4 +27,4 @@ The dataset used in this project is publicly available on Kaggle:
 - Geographic location impacts salary distribution
   
 ## Author
-- Apostolia Fardi
+Apostolia Fardi

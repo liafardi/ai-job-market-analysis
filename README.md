@@ -20,7 +20,7 @@ The dataset used in this project is publicly available on Kaggle:
 
 - ## Tools
 - R
-- ggplot2/dplyr
+- ggplot2 / dplyr
 
 - ## Key Insights
 - Salary varies significantly by role and experience  

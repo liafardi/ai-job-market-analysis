@@ -13,38 +13,33 @@ The dataset used in this project is publicly available on Kaggle:
 - Identify factors affecting compensation  
 - Explore relationships between experience, job type, and salary
 
-- ## Methods
+ ## Methods
 - Data cleaning and preprocessing  
 - Exploratory Data Analysis (EDA)  
 - Data visualization  
 
-- ## Tools
+ ## Tools
 - R
 - ggplot2 / dplyr
 
-- ## Salary Trends by Experience and Region
-<h3>Salary Trends by Experience and Region</h3>
+ ## Salary Trends by Experience and Region
+<p align="center">
+  <img src="plot1.png" width="550">
+</p>
 
 <p align="center">
-  <img src="plot2" width="600">
+Salaries increase significantly with experience, with North America leading across all levels.
+</p>
+## Salary Distribution
+<p align="center">
+  <img src="plot2" width="550">
 </p>
 
 <p align="center">
 Salaries increase significantly with experience, with North America leading across all levels.
 </p>
 
-- ## Salary Distribution
-<h3>Salary Trends by Experience and Region</h3>
-
-<p align="center">
-  <img src="plot1.png" width="600">
-</p>
-
-<p align="center">
-The distribution is right-skewed, indicating a concentration of mid-range salaries with high-end outliers.
-</p>
-
-- ## Key Insights
+## Key Insights
 - Salary varies significantly by role and experience  
 - Geographic location impacts salary distribution
   

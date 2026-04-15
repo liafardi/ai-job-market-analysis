@@ -26,17 +26,23 @@ The dataset used in this project is publicly available on Kaggle:
 <h3>Salary Trends by Experience and Region</h3>
 
 <p align="center">
-  <img src="plot1.png" width="600">
+  <img src="plot2" width="600">
 </p>
 
 <p align="center">
 Salaries increase significantly with experience, with North America leading across all levels.
 </p>
-Salaries increase significantly with experience, with North America leading across all levels.
 
 - ## Salary Distribution
- <img src="plot1.png" width="600">
+<h3>Salary Trends by Experience and Region</h3>
+
+<p align="center">
+  <img src="plot1.png" width="600">
+</p>
+
+<p align="center">
 The distribution is right-skewed, indicating a concentration of mid-range salaries with high-end outliers.
+</p>
 
 - ## Key Insights
 - Salary varies significantly by role and experience  

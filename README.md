@@ -22,6 +22,9 @@ The dataset used in this project is publicly available on Kaggle:
 - R
 - ggplot2 / dplyr
 
+- ## Salary Trends by Experience and Region
+- 
+
 - ## Key Insights
 - Salary varies significantly by role and experience  
 - Geographic location impacts salary distribution

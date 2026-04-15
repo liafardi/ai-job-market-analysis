@@ -24,7 +24,7 @@ The dataset used in this project is publicly available on Kaggle:
 
  ## Salary Trends by Experience and Region
 <p align="center">
-  <img src="plot2" width="550">
+  <img src="plot2.png" width="550">
 </p>
 
 <p align="center">

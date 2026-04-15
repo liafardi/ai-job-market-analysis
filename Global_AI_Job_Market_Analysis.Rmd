@@ -1,0 +1,308 @@
+---
+title: "Global AI Job Market & Salary Trends 2025"
+output: html_document
+date: "2026-03-26"
+---
+#Libraries & Dala Loading
+```{r setup, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(haven)
+library(tidyverse)
+library(ggplot2)
+library(scales)
+library(car)       
+library(emmeans)  
+
+df<-read.csv("~/Documents/MSc/3ο Trimester/Statistics/ergasia/dataset/ai_job_dataset.csv")
+```
+
+#Prepare Data
+
+```{r}
+#Total observations
+n<-nrow(df)
+print(paste("Total observations:",n))
+
+#Save original columns
+original_columns <- colnames(df)
+
+#Categorizing job titles
+df_jobs <- data.frame(
+  job_title = c(
+    # Data Science & Analytics related jobs
+    "Data Scientist", "Data Analyst", "Principal Data Scientist",
+    "AI Specialist", "AI Consultant",
+    
+    # AI Engineering related jobs
+    "Machine Learning Engineer", "AI Software Engineer", "Data Engineer", "NLP Engineer",
+    "Deep Learning Engineer", "ML Ops Engineer", "Computer Vision Engineer", "Robotics Engineer",
+    "Autonomous Systems Engineer",
+    
+    # Research related jobs
+    "AI Research Scientist", "Research Scientist", "Machine Learning Researcher",
+    
+    # Leadership & Strategy related jobs
+    "Head of AI", "AI Architect", "AI Product Manager"
+  ),
+  job_category = c(
+    rep("Data Science & Analytics", 5),
+    rep("AI Engineering", 9),
+    rep("Research", 3),
+    rep("Leadership & Strategy", 3)
+  ),
+  stringsAsFactors = FALSE
+)
+
+#Categorizing Regions
+df_regions<-data.frame(
+  company_location=c(
+    #North America
+    "United States", "Canada", 
+    
+    #Europe
+    "United Kingdom", "Germany", "France", "Netherlands", "Switzerland", 
+    "Denmark", "Norway", "Ireland", "Sweden", "Finland", "Austria",
+    
+    #Asia
+    "China", "India", "Japan", "Singapore", "South Korea", "Israel", 
+    
+    #Oceania
+    "Australia"
+  ),
+  region=c(
+    rep("North America",2),
+    rep("Europe",11),
+    rep("Asia",6),
+    "Oceania"
+  ),
+  stringsAsFactors = FALSE
+)
+
+df <- merge(df, df_jobs, by = "job_title", all.x = TRUE)
+df <- merge(df, df_regions, by = "company_location", all.x = TRUE)
+
+#Converting to factors
+df$job_category <- as.factor(df$job_category)
+df$region <- as.factor(df$region)
+df$experience_level <- factor(df$experience_level, levels = c("EN", "MI", "SE", "EX"))
+df$company_size <- factor(df$company_size, levels = c("S", "M", "L"))
+
+#Keeping the original columns 
+df <- df[, c(original_columns, "job_category", "region")]
+
+#Variable control
+glimpse(df$salary_usd) 
+summary(df$salary_usd)
+sum(is.na(df$salary_usd))
+# Remove missing salaries if any
+df <- df %>% filter(!is.na(salary_usd))
+```
+
+#Visualization and Desctriptive Statistics
+```{r, echo=FALSE}
+#Salary Distribution
+ggplot(df, aes(x =salary_usd)) +
+  geom_histogram(fill="lightgray",color="gray30",bins=30)+ 
+  labs(
+  title="Salary Distribution",
+  x = "Salary (USD)",
+  y = "Count"
+  )+
+  theme_classic()+
+  theme(
+  panel.grid.major = element_blank(),
+  panel.grid.minor=element_blank(),
+  plot.title=element_text(hjust=0.5,face="bold",size=14)
+  )
+
+#Stats by Region
+region_stats <- df %>%
+  group_by(region) %>%
+  summarise(
+    n = n(),
+    mean_salary = mean(salary_usd, na.rm = TRUE),
+    median_salary = median(salary_usd, na.rm = TRUE),
+    sd_salary = sd(salary_usd, na.rm = TRUE),
+    min_salary = min(salary_usd, na.rm = TRUE),
+    max_salary = max(salary_usd, na.rm = TRUE)
+    )
+print(region_stats)
+
+#Boxplot Region
+ggplot(df, aes(x = salary_usd, y = region)) +
+  geom_boxplot(na.rm = TRUE,alpha= 0.6, outlier.color = "grey30",outlier.shape=1) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "darkblue") +
+  labs(title = "Salary Distribution by Geographic Region (2025)",
+       x = "Annual Salary (USD)", y = "Geographic Region")+
+  scale_x_continuous(labels = comma) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16), 
+    legend.position = "none",
+    axis.title = element_text(face = "bold"),
+    axis.text.x = element_text(size = 11),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(color = "black"),
+    axis.text = element_text(size = 11, color = "black"),
+  )
+#Boxplot (Salary-Job category)
+  ggplot(df, aes(x = salary_usd, y = job_category)) +
+    geom_boxplot(na.rm = TRUE,alpha= 0.6, outlier.color = "grey30",outlier.shape=1) +
+    stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "darkblue") +
+    labs(title = "Salary Distribution by Job Category (2025)",
+         x = "Annual Salary (USD)", y = "Job Category")+
+  scale_x_continuous(labels = comma) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 16), 
+      legend.position = "none",
+      axis.title = element_text(face = "bold"),
+      axis.text.x = element_text(size = 11),
+      panel.border = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      axis.line = element_line(color = "black"),
+      axis.text = element_text(size = 11, color = "black"),
+    )
+
+
+#Stats Company Size
+company_stats <- df %>%
+  group_by(company_size) %>%
+  summarise(
+    n = n(),
+    mean_salary = mean(salary_usd, na.rm = TRUE),
+    median_salary = median(salary_usd, na.rm = TRUE),
+    sd_salary = sd(salary_usd, na.rm = TRUE),
+    min_salary = min(salary_usd, na.rm = TRUE),
+    max_salary = max(salary_usd, na.rm = TRUE)
+  )
+
+print(company_stats)
+
+#Boxplot: Salary by Company size
+ggplot(df, aes(x = company_size, y = salary_usd, fill = company_size)) +
+  geom_boxplot(alpha = 0.8, color = "black", outlier.size = 0.5) +
+  scale_y_continuous(labels = comma) +
+  scale_fill_brewer(palette = "Blues") + 
+  labs(
+    title = "Salary Distribution by Company Size",
+    subtitle = "Comparing compensation across Small (S), Medium (M), and Large (L) companies",
+    x = "Company Size",
+    y = "Annual Salary (USD)",
+    fill = "Company Size"  
+  ) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, size = 10),
+    legend.position = "bottom", 
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(color = "black", size = 11),
+    axis.title = element_text(face = "bold")
+  )
+
+
+# Interaction Visualization
+interaction.plot(
+  x.factor = df$experience_level,
+  trace.factor = df$region,
+  response = df$salary_usd,
+  fun = median,
+  
+  ylab = "Median Salary (USD)",
+  xlab = "Experience Level",
+  main = "Salary by Experience Level and Region",
+  
+  col = c("#1B9E77", "#D95F02", "#7570B3", "#E7298A"),
+  lwd = 2,
+  type = "b",
+  pch = 16,
+  
+  cex.main = 1.2,
+  cex.lab = 1,
+  cex.axis = 0.9,
+  
+  legend = FALSE
+)
+
+
+
+```
+
+#(ANOVA & TESTS)
+
+```{r}
+# Normality test (Sharip-Wilk) per Region
+shapiro.test(na.omit(filter(df, region == "Oceania")$salary_usd))
+shapiro.test(na.omit(filter(df, region == "Asia")$salary_usd))
+shapiro.test(na.omit(filter(df, region == "North America")$salary_usd))
+europe_salary <- na.omit(filter(df, region == "Europe")$salary_usd)
+shapiro.test(sample(europe_salary, 5000))
+
+#Normality test (Sharip-Wilk) per Job Category
+shapiro.test(na.omit(filter(df, job_category == "Data Science & Analytics")$salary_usd))
+shapiro.test(na.omit(filter(df, job_category == "Research")$salary_usd))
+shapiro.test(na.omit(filter(df, job_category == "Leadership & Strategy")$salary_usd))
+#Taking a random sample of 5,000 observations for AI Engineering
+ai_engineering_salary <- na.omit(filter(df,job_category == "AI Engineering")$salary_usd)
+shapiro.test(sample(ai_engineering_salary,5000))
+
+#KRUSKAL-WALLIS Test by Job category
+kruskal_region1 <- kruskal.test(salary_usd ~ job_category, data = df)
+print(kruskal_region1)
+  
+#Post-hoc Test (Pairwise Wilcoxon)
+pairwise_region1 <- pairwise.wilcox.test(df$salary_usd, df$job_category, p.adjust.method = "bonferroni")
+print(pairwise_region1)
+
+#KRUSKAL-WALLIS Test by Region
+kruskal_region2 <- kruskal.test(salary_usd ~ region, data = df)
+print(kruskal_region2)
+
+#Post-hoc Test (Pairwise Wilcoxon)
+pairwise_region2 <- pairwise.wilcox.test(df$salary_usd, df$region, p.adjust.method = "bonferroni")
+print(pairwise_region2)
+
+
+#Normality check by company size
+#Sharipo-Wilk
+shapiro.test(sample(df$salary_usd[df$company_size == "S"], 5000))
+shapiro.test(df$salary_usd[df$company_size == "M"])
+shapiro.test(df$salary_usd[df$company_size == "L"])
+
+#KRUSKAL-WALLIS test by Company Size
+kruskal_size <- kruskal.test(salary_usd ~ company_size, data = df)
+print(kruskal_size)
+
+#Post-hoc test (Pairwise Wilcoxon)
+pairwise_size <- pairwise.wilcox.test(df$salary_usd, df$company_size, p.adjust.method = "bonferroni")
+print(pairwise_size)
+
+
+df$log_salary <- log(df$salary_usd)
+#Homogenity of variance
+leveneTest(log_salary ~ interaction(experience_level, region), data = df)
+#Two way ANOVA
+fit1 <- aov(log_salary ~ experience_level * region, data = df)
+summary(fit1)
+
+#---Tukey for Experience Level
+tukey_results <- as.data.frame(TukeyHSD(fit1, "experience_level")$experience_level)
+print(round(tukey_results, 2))
+
+#EMMEANS: Experience within each region
+emmeans_results <- emmeans(fit1, pairwise ~ experience_level | region)
+print(emmeans_results)
+
+#Chi-square test (Region and experience level dependency)
+tab <- table(df$region, df$experience_level)
+print(tab)
+chi_test <- chisq.test(tab)
+chi_test
+
+```
+
